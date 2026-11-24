@@ -1,0 +1,20 @@
+---
+const states = [
+  ['Alabama','AL'],['Alaska','AK'],['Arizona','AZ'],['Arkansas','AR'],['California','CA'],['Colorado','CO'],['Connecticut','CT'],['Delaware','DE'],['District of Columbia','DC'],['Florida','FL'],['Georgia','GA'],['Hawaii','HI'],['Idaho','ID'],['Illinois','IL'],['Indiana','IN'],['Iowa','IA'],['Kansas','KS'],['Kentucky','KY'],['Louisiana','LA'],['Maine','ME'],['Maryland','MD'],['Massachusetts','MA'],['Michigan','MI'],['Minnesota','MN'],['Mississippi','MS'],['Missouri','MO'],['Montana','MT'],['Nebraska','NE'],['Nevada','NV'],['New Hampshire','NH'],['New Jersey','NJ'],['New Mexico','NM'],['New York','NY'],['North Carolina','NC'],['North Dakota','ND'],['Ohio','OH'],['Oklahoma','OK'],['Oregon','OR'],['Pennsylvania','PA'],['Rhode Island','RI'],['South Carolina','SC'],['South Dakota','SD'],['Tennessee','TN'],['Texas','TX'],['Utah','UT'],['Vermont','VT'],['Virginia','VA'],['Washington','WA'],['West Virginia','WV'],['Wisconsin','WI'],['Wyoming','WY'],
+];
+const categories = [
+  { title: 'K–12 Education', org: 'school OR district OR "charter school" OR "private school"', need: '("CTE director" OR "career technical education" OR "AI program" OR "computer science")', roles: '(director OR coordinator OR superintendent OR principal)' },
+  { title: 'Higher Education', org: 'college OR university OR "community college"', need: '("AI program" OR "computer science" OR "career services" OR "workforce development")', roles: '(dean OR director OR chair OR coordinator)' },
+  { title: 'Nonprofits', org: 'nonprofit OR "non-profit" OR foundation', need: '("AI education" OR "digital skills" OR youth OR education)', roles: '(director OR program manager OR partnerships)' },
+  { title: 'Youth STEM', org: '"youth STEM" OR "STEM program" OR "after-school program"', need: '(artificial intelligence OR robotics OR coding OR technology)', roles: '(director OR coordinator OR educator)' },
+  { title: 'Workforce & Community', org: '"workforce development" OR "community center" OR "adult education" OR "job training"', need: '(AI OR "digital skills" OR career OR reskilling)', roles: '(director OR program manager OR coordinator)' },
+];
+---
+<section class="glass card section-space" id="phase2-searches">
+  <div class="cardhead"><div><h3>Phase 2 · State-specific search builder</h3><p class="muted tiny">Choose a state, then open Google results for each organization focus. Search results are leads to research, not verified contacts.</p></div><span class="status-badge">50 states + DC</span></div>
+  <label class="p2-state-label" for="statePicker">Search location</label>
+  <select id="statePicker" class="p2-state-select">{states.map(([name, abbr]) => <option value={name} data-abbr={abbr}>{name}</option>)}</select>
+  <div class="p2-segment-grid">
+    {categories.map((category, index) => <article class="p2-segment-card" style={`--card-index:${index}`}><strong>{category.title}</strong><small>Search for relevant organizations and program decision-makers.</small><a class="p2-search-link" href="https://www.google.com/" data-org={category.org} data-need={category.need} data-roles={category.roles} target="_blank" rel="noopener noreferrer">Search — {category.title} ↗</a><details class="p2-focus-syntax"><summary>View query</summary><code data-query-preview></code></details></article>)}
+  </div>
+</section>

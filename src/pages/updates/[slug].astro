@@ -1,0 +1,26 @@
+---
+import { getCollection, render } from 'astro:content';
+import WorkspaceLayout from '../../layouts/WorkspaceLayout.astro';
+
+export async function getStaticPaths() {
+  const updates = await getCollection('updates');
+  return updates.map((update) => ({ params: { slug: update.id }, props: { update } }));
+}
+
+const { update } = Astro.props;
+const { Content } = await render(update);
+const dateFormat = new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+---
+<WorkspaceLayout title="Sprint report" current="updates" description={update.data.summary}>
+  <article class="glass card report">
+    <a href="/updates/" class="back-link">← All sprint updates</a>
+    <div class="report-meta"><span class="status-badge">{update.data.status}</span><span>{dateFormat.format(update.data.date)}</span><span>{update.data.phase}</span></div>
+    <h2>{update.data.title}</h2>
+    <p class="report-summary">{update.data.summary}</p>
+    <hr />
+    <div class="report-content"><Content /></div>
+  </article>
+  <style>
+    .report{max-width:920px;margin:0 auto}.back-link{display:inline-block;color:var(--cyan);text-decoration:none;font-weight:700;margin-bottom:20px}.report-meta{display:flex;align-items:center;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:13px}.report h2{font:700 clamp(28px,4vw,42px) 'Space Grotesk';margin:20px 0 10px;line-height:1.15}.report-summary{font-size:18px;line-height:1.65;color:#dce7f7}.report hr{border:0;border-top:1px solid var(--line);margin:24px 0}.report-content{font-size:16px;line-height:1.75;color:var(--muted)}.report-content h2{font-size:24px}.report-content li{margin:7px 0}
+  </style>
+</WorkspaceLayout>

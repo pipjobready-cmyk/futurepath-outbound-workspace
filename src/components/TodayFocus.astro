@@ -1,0 +1,31 @@
+---
+const starterTasks = [
+  'Choose the first state and focus area for Phase 2 research',
+  'Review workbook access and confirm the right tracker for each phase',
+  'Human-verify each lead before any outreach is sent',
+];
+---
+<section class="today-card glass card section-space" aria-labelledby="today-heading">
+  <div class="today-heading cardhead">
+    <div><span class="eyebrow">YOUR WORKSPACE</span><h3 id="today-heading">Today · pick up where you left off</h3><p class="muted tiny">A personal focus card to keep the next steps in view.</p></div>
+    <span class="today-date" data-today-date></span>
+  </div>
+  <div class="today-grid">
+    <div class="today-status-panel">
+      <label for="workStatus">Current work status</label>
+      <select id="workStatus" class="field">
+        <option>In progress</option><option>Focused work</option><option>Waiting for input</option><option>Done for today</option><option>On hold</option>
+      </select>
+      <label for="workCheckpoint">Where I left off</label>
+      <textarea id="workCheckpoint" class="field" rows="4" maxlength="1200">The Astro workspace structure is prepared. Next, install the project dependencies, build the site, and connect the project to Vercel. The Google Sheets remain the source of truth for outreach records.</textarea>
+      <div class="checkpoint-footer"><span id="checkpointSaved" class="muted tiny" aria-live="polite">Saved on this device</span><button id="saveCheckpoint" type="button" class="btn">Save note</button></div>
+      <p class="local-note">Saved in this browser only.</p>
+    </div>
+    <div class="todo-panel">
+      <div class="todo-title"><div><label>Next actions</label><p class="muted tiny">Keep the list short. Finish one thing at a time.</p></div><span class="todo-progress" id="todoProgress">0 / 3 done</span></div>
+      <form id="todoForm" class="todo-form"><label class="sr-only" for="todoInput">Add a task</label><input id="todoInput" class="field" maxlength="180" placeholder="Add a task to stay focused" /><button class="btn primary" type="submit">＋ Add</button></form>
+      <ul id="todoList" class="todo-list" aria-live="polite" data-starter-tasks={JSON.stringify(starterTasks)}></ul>
+      <p id="todoEmpty" class="muted tiny" hidden>No tasks yet. Add one small next step.</p>
+    </div>
+  </div>
+</section>

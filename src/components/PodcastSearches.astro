@@ -1,0 +1,19 @@
+---
+const topics = [
+  ['Artificial intelligence / AI', '"artificial intelligence" OR "AI"'],
+  ['Future of work', '"future of work"'],
+  ['Entrepreneurship', 'entrepreneurship'],
+  ['Education', 'education'],
+  ['Innovation', 'innovation'],
+];
+---
+<section class="glass card section-space" id="phase1-searches">
+  <div class="cardhead"><div><h3>Phase 1 · Podcast discovery searches</h3><p class="muted tiny">Targeted U.S. Google searches. Review official show pages and verify all contacts before outreach.</p></div><span class="status-badge">Podcast & creator</span></div>
+  <div class="p2-podcast-list">
+    {topics.map(([title, topic]) => {
+      const query = `"podcast" (${topic}) ("host" OR "episode") ("guest" OR "interview") (US OR USA OR United States) -top -best -"list of"`;
+      const href = `https://www.google.com/search?q=${encodeURIComponent(query)}&gl=us&hl=en&cr=countryUS`;
+      return <a class="p2-podcast-query" href={href} target="_blank" rel="noopener noreferrer"><strong>{title} <span aria-hidden="true">↗</span></strong><code>{query}</code></a>;
+    })}
+  </div>
+</section>

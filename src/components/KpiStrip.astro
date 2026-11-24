@@ -1,0 +1,26 @@
+---
+const metrics = [
+  { title: 'Leads in pipeline', icon: '◉', value: '6', note: '↑ 6 added this week', label: 'Illustrative leads by date', accent: '#65e6ee', path: 'M2 36 C18 33 20 26 35 29 S53 12 68 20 S88 7 108 11' },
+  { title: 'Research verified', icon: '⌕', value: '18', note: 'Official source checked', label: 'Illustrative verified research by date', accent: '#c7f581', path: 'M2 37 C16 34 23 28 36 30 S50 20 64 22 S83 9 108 8' },
+  { title: 'Awaiting approval', icon: '♧', value: '2', note: 'Human review required', label: 'Illustrative approvals by date', accent: '#9ca8ff', path: 'M2 38 C20 33 22 30 35 32 S55 18 67 24 S88 11 108 14' },
+  { title: 'Replies received', icon: '✉', value: '5', note: '↑ 2 this week', label: 'Illustrative replies by date', accent: '#ff9bd5', path: 'M2 39 C14 35 25 30 38 33 S55 19 69 25 S91 8 108 10' },
+];
+---
+<section class="metrics" aria-label="Illustrative project metrics">
+  {metrics.map((metric) => (
+    <article class="metric glass" style={`--accent:${metric.accent}`}>
+      <div class="metricline"><span>{metric.title}</span><span aria-hidden="true">{metric.icon}</span></div>
+      <div class="metricnum">{metric.value}</div>
+      <div class="delta">{metric.note}</div>
+      <div class="miniChart" aria-label={`${metric.label}; illustrative only`}>
+        <svg viewBox="0 0 110 46" role="img" aria-hidden="true">
+          <path class="chart-grid" d="M0 10H110M0 23H110M0 36H110" />
+          <path class="chart-trace" d={metric.path} />
+          <circle class="chart-glow" cx="108" cy={metric.value === '18' ? '8' : metric.value === '2' ? '14' : '10'} />
+        </svg>
+        <div class="chartDates" aria-hidden="true"><span data-date-offset="30">—</span><span data-date-offset="20">—</span><span data-date-offset="10">—</span><span data-date-offset="0">—</span></div>
+      </div>
+    </article>
+  ))}
+</section>
+<p class="metricFootnote">Illustrative trend previews · dates roll forward automatically · totals are not connected to Sheets</p>

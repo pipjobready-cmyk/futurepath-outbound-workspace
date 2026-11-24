@@ -1,0 +1,30 @@
+---
+import { getCollection } from 'astro:content';
+import WorkspaceLayout from '../layouts/WorkspaceLayout.astro';
+import KpiStrip from '../components/KpiStrip.astro';
+import TodayFocus from '../components/TodayFocus.astro';
+import PhaseOverview from '../components/PhaseOverview.astro';
+import QuickAccess from '../components/QuickAccess.astro';
+import LeadTracker from '../components/LeadTracker.astro';
+
+const updates = (await getCollection('updates')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 3);
+const dateFormat = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+---
+<WorkspaceLayout title="Project overview" current="overview">
+  <section class="hero glass">
+    <div><h2>Building trusted pathways to future-ready learning and work</h2><p>One workspace for podcast outreach, education partnerships, and opportunity coordination. Human verification stays at the center of every outreach decision.</p></div>
+    <div class="win"><b>3 phases</b><span>ONE SHARED PROJECT VIEW</span></div>
+  </section>
+  <KpiStrip />
+  <TodayFocus />
+  <PhaseOverview />
+  <QuickAccess />
+  <LeadTracker />
+  <section class="glass card section-space">
+    <div class="cardhead"><div><h3>Recent sprint updates</h3><p class="muted tiny">Project progress and upcoming decisions.</p></div><a class="btn" href="/updates/">All updates ↗</a></div>
+    {updates.length ? <div class="update-grid">{updates.map((update) => <a class="glass card update-card" href={`/updates/${update.id}/`}><span class="status-badge">{update.data.status}</span><h3>{update.data.title}</h3><p class="muted tiny">{dateFormat.format(update.data.date)} · {update.data.phase}</p><p>{update.data.summary}</p><strong>Read sprint report ↗</strong></a>)}</div> : <p class="muted">No updates have been published yet.</p>}
+  </section>
+  <style>
+    .update-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}.update-card h3{font:600 18px 'Space Grotesk';margin:14px 0 7px}.update-card p{line-height:1.55}.update-card strong{color:var(--cyan);font-size:14px}
+  </style>
+</WorkspaceLayout>

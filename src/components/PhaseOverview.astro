@@ -1,0 +1,25 @@
+---
+const phases = [
+  { name: 'Phase 1 · Podcast & creator outreach', status: 'In progress', icon: '🎙️', detail: 'Research relevant shows and creators, verify host contacts, and prepare thoughtful guest pitches.' },
+  { name: 'Phase 2 · Education partnerships', status: 'In progress', icon: '🎓', detail: 'Find schools, youth organizations, nonprofits, and community programs interested in AI education.' },
+  { name: 'Phase 3 · Ongoing coordination', status: 'Set up', icon: '🗓️', detail: 'Track contacts, conversations, follow-ups, invitations, and the weekly next-step summary.' },
+];
+---
+<section class="glass card section-space" aria-labelledby="phase-heading">
+  <div class="cardhead"><div><h3 id="phase-heading">Campaign phases</h3><p class="muted tiny">A concise status view across the outreach program.</p></div><span class="status-badge">3 phases</span></div>
+  <div class="phase-status-grid">
+    {phases.map((phase, index) => (
+      <article class="phase-status-card" style={`--card-index:${index}`}>
+        <div class="phase-icon" aria-hidden="true">{phase.icon}</div>
+        <div class="phase-line"><strong>{phase.name}</strong><span class="phase-state">{phase.status}</span></div>
+        <p>{phase.detail}</p>
+      </article>
+    ))}
+  </div>
+</section>
+<style>
+  .phase-status-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+  .phase-status-card{padding:16px;border:1px solid var(--line);border-radius:16px;background:rgba(8,19,39,.68);animation:fp-enter .55s both;animation-delay:calc(var(--card-index,0)*60ms)}
+  .phase-icon{font-size:25px;margin-bottom:8px}.phase-line{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}.phase-line strong{font-size:15px}.phase-state{color:var(--cyan);font-size:12px;font-weight:700}.phase-status-card p{color:var(--muted);margin:8px 0 0;font-size:14px;line-height:1.5}
+  @media(max-width:850px){.phase-status-grid{grid-template-columns:1fr}}
+</style>

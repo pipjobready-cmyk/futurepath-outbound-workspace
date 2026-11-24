@@ -1,0 +1,36 @@
+---
+const stages = [
+  { name: 'New', emoji: '🐣', count: 2 },
+  { name: 'Researching', emoji: '🔎', count: 1 },
+  { name: 'Qualified', emoji: '✨', count: 1 },
+  { name: 'Awaiting approval', emoji: '🧑‍⚖️', count: 1 },
+  { name: 'Contacted', emoji: '📨', count: 1 },
+];
+const leads = [
+  { org: 'AI & education podcast prospect', segment: 'Podcast', signal: 'Official show page to verify', stage: 'New' },
+  { org: 'Future of work podcast prospect', segment: 'Podcast', signal: 'Recent episode to review', stage: 'New' },
+  { org: 'California K–12 AI / CTE prospect', segment: 'K–12 Education', signal: 'Find program decision-maker', stage: 'Researching' },
+  { org: 'Youth STEM community prospect', segment: 'Youth STEM', signal: 'Confirm active program', stage: 'Qualified' },
+  { org: 'Innovation forum opportunity', segment: 'Speaking & events', signal: 'Human review before pitch', stage: 'Awaiting approval' },
+  { org: 'Education partnership prospect', segment: 'Higher Education', signal: 'Introductory message pending', stage: 'Contacted' },
+];
+---
+<section class="grid section-space" id="lead-tracker">
+  <article class="glass card">
+    <div class="cardhead"><div><h3>Lead journey</h3><p class="muted tiny">Select a stage to filter the tracker. Sample records are illustrative.</p></div><button class="btn primary" id="addLead">＋ Add a lead</button></div>
+    <div class="funnel" role="group" aria-label="Filter leads by stage">
+      <button type="button" class="stage selected" data-stage-filter="All"><span class="stage-top">All leads</span><span class="stage-character" aria-hidden="true">🧭</span><span class="stage-count" data-count-all>6</span><small>View all stages</small></button>
+      {stages.map((stage) => <button type="button" class="stage" data-stage-filter={stage.name}><span class="stage-top">{stage.name}</span><span class="stage-character" aria-hidden="true">{stage.emoji}</span><span class="stage-count" data-count-stage={stage.name}>{stage.count}</span><small>Filter this stage</small></button>)}
+    </div>
+    <div class="filters"><input class="search" id="leadSearch" type="search" placeholder="Search organizations or focus areas" aria-label="Search leads" /><span class="muted tiny" id="leadCount">6 sample records</span></div>
+    <div class="tablewrap"><table><thead><tr><th>Organization / show</th><th>Focus</th><th>Research signal</th><th>Stage</th></tr></thead><tbody id="leadRows">
+      {leads.map((lead) => <tr data-lead data-org={lead.org} data-segment={lead.segment} data-signal={lead.signal} data-stage={lead.stage}><td class="org">{lead.org}<small>Illustrative workspace record</small></td><td>{lead.segment}</td><td>{lead.signal}</td><td><span class="badge">{lead.stage}</span></td></tr>)}
+    </tbody></table></div>
+  </article>
+  <aside class="sidecol">
+    <section class="glass card"><div class="cardhead"><h3>Quote of the day</h3><span aria-hidden="true">✦</span></div><blockquote id="quoteText" class="daily-quote">Small steps, taken consistently, create meaningful progress.</blockquote><p class="muted tiny" id="quoteDate"></p><p class="tiny muted">Rotates by date from a curated quote set.</p></section>
+    <section class="glass card"><div class="cardhead"><h3>Announcements & updates</h3><span class="status-badge">Local preview</span></div><p class="muted tiny">Announcements entered here stay in this browser only; use the email link for shared updates.</p><label class="tiny" for="announcementText">Add a note</label><textarea id="announcementText" class="field" rows="2" placeholder="Project note or feedback"></textarea><label class="urgent-toggle"><input id="announcementUrgent" type="checkbox" /> Mark as urgent</label><button class="btn" id="postAnnouncement">Post update</button><div id="announcementList" class="notice-list" aria-live="polite"></div><a class="tool" href="mailto:rcoke@raulvincoke.com?subject=FuturePath%20project%20update">Email Sir Raulvin ↗</a></section>
+    <section class="glass card"><div class="cardhead"><h3>Project chat</h3><button class="btn" id="chatToggle" aria-expanded="false" aria-controls="chatPanel">Open chat</button></div><p class="muted tiny">This browser-only preview does not send or share messages. Email is available for urgent communication.</p><div id="chatPanel" class="chat-panel" hidden><div id="chatMessages" class="chat-messages" aria-live="polite"></div><form id="chatForm"><label class="sr-only" for="chatInput">Message</label><input id="chatInput" class="field" maxlength="500" placeholder="Write a local note" /><button class="btn primary" type="submit">Save note</button></form></div><a class="tool" href="mailto:rcoke@raulvincoke.com?subject=Urgent%20FuturePath%20workspace%20message">Email project lead ↗</a></section>
+  </aside>
+</section>
+<div class="modal" id="leadModal" hidden role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modalbox"><button type="button" class="modalclose" id="closeLeadModal" aria-label="Close">×</button><h3 id="modalTitle">Add a lead to this preview</h3><p>This saves in the current browser only. Add verified records to the Google Sheet for team access.</p><label for="newLeadOrg">Organization / show</label><input id="newLeadOrg" class="field" required /><label for="newLeadFocus">Focus area</label><input id="newLeadFocus" class="field" placeholder="e.g. Podcast, K–12 Education" /><label for="newLeadStage">Stage</label><select id="newLeadStage" class="field"><option>New</option><option>Researching</option><option>Qualified</option><option>Awaiting approval</option><option>Contacted</option></select><div class="modal-actions"><button class="btn" type="button" id="cancelLead">Cancel</button><button class="btn primary" type="button" id="saveLead">Save preview lead</button></div></div></div>

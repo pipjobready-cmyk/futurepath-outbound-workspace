@@ -1,0 +1,12 @@
+---
+import { getCollection } from 'astro:content';
+import WorkspaceLayout from '../../layouts/WorkspaceLayout.astro';
+const updates = (await getCollection('updates')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const dateFormat = new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+---
+<WorkspaceLayout title="Sprint updates" current="updates" description="Recent progress notes and weekly reports for the FuturePath AI outreach workspace.">
+  <section class="glass card"><div class="cardhead"><div><h3>Progress, decisions & next steps</h3><p class="muted tiny">Updates are published from the project's content collection.</p></div></div>
+    <div class="update-list">{updates.map((update) => <a class="glass card update-card" href={`/updates/${update.id}/`}><span class="status-badge">{update.data.status}</span><h2>{update.data.title}</h2><p class="muted tiny">{dateFormat.format(update.data.date)} · {update.data.phase}</p><p>{update.data.summary}</p><strong>Open full update ↗</strong></a>)}</div>
+  </section>
+  <style>.update-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:12px}.update-card h2{font:600 20px 'Space Grotesk';margin:13px 0 6px}.update-card p{line-height:1.55}.update-card strong{color:var(--cyan)}</style>
+</WorkspaceLayout>

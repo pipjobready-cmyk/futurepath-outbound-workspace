@@ -1,0 +1,24 @@
+---
+import WorkspaceLayout from '../layouts/WorkspaceLayout.astro';
+import QuickAccess from '../components/QuickAccess.astro';
+import PodcastSearches from '../components/PodcastSearches.astro';
+import Phase2SearchBuilder from '../components/Phase2SearchBuilder.astro';
+import LeadSources from '../components/LeadSources.astro';
+---
+<WorkspaceLayout title="Outreach roadmap" current="roadmap" description="Phase deliverables, lead discovery searches, and research standards for the FuturePath AI outreach program.">
+  <section class="hero glass"><div><h2>Three phases, one thoughtful outreach process</h2><p>Move from research and fit assessment through human review, introductory outreach, and relationship coordination.</p></div></section>
+  <section class="glass card section-space">
+    <div class="roadmap-list">
+      <article class="roadmap-phase"><span class="phase-icon">🎙️</span><div><span class="eyebrow">PHASE 1</span><h2>Podcast, creator & speaking outreach</h2><p>Research podcasts and audio content creators covering AI, education, entrepreneurship, the future of work, and innovation. Identify suitable speaking opportunities, verify contact routes, and prepare founder or team guest pitches.</p><ul><li>Check official show or event pages and recent activity.</li><li>Capture hosts, producers, relevant episodes, and booking routes.</li><li>Review each contact before pitching.</li></ul></div></article>
+      <article class="roadmap-phase"><span class="phase-icon">🎓</span><div><span class="eyebrow">PHASE 2</span><h2>Education & community partnerships</h2><p>Identify public and private schools, youth organizations, nonprofits, and community programs that may benefit from AI education workshops.</p><ul><li>Prioritize CTE, AI, computer science, STEM, workforce, and career program decision-makers.</li><li>Find the appropriate director, coordinator, dean, or program lead.</li><li>Share program information and arrange discovery calls after review.</li></ul></div></article>
+      <article class="roadmap-phase"><span class="phase-icon">🗓️</span><div><span class="eyebrow">PHASE 3</span><h2>Ongoing coordination</h2><p>Maintain a complete record of contacts, messages, responses, follow-ups, invitations, and meetings.</p><ul><li>Keep a weekly activity and opportunity summary.</li><li>Coordinate invitation responses and scheduling.</li><li>Track next steps with clear owners and dates.</li></ul></div></article>
+    </div>
+  </section>
+  <PodcastSearches />
+  <Phase2SearchBuilder />
+  <LeadSources />
+  <QuickAccess />
+  <style>
+    .roadmap-list{display:grid;gap:14px}.roadmap-phase{display:grid;grid-template-columns:52px 1fr;gap:15px;padding:18px;border:1px solid var(--line);border-radius:17px;background:rgba(8,19,39,.64)}.roadmap-phase h2{font:600 20px 'Space Grotesk';margin:5px 0 8px}.roadmap-phase p,.roadmap-phase li{color:var(--muted);line-height:1.6}.roadmap-phase ul{padding-left:20px}.roadmap-phase .phase-icon{font-size:30px}@media(max-width:600px){.roadmap-phase{grid-template-columns:1fr}}
+  </style>
+</WorkspaceLayout>
